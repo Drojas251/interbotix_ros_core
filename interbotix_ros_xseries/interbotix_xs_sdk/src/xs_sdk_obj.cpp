@@ -873,7 +873,8 @@ bool InterbotixRobotXS::robot_srv_get_robot_info(interbotix_xs_sdk::RobotInfo::R
   std::string robot_name = node.getNamespace();
   if (ros::param::has("robot_description"))
   {
-    model.initParam(robot_name + "/robot_description");
+    //model.initParam(robot_name + "/robot_description");
+    model.initParam("/robot_description");
     urdf_exists = true;
   }
   if (req.cmd_type == "group")
@@ -904,7 +905,7 @@ bool InterbotixRobotXS::robot_srv_get_robot_info(interbotix_xs_sdk::RobotInfo::R
     res.joint_state_indices.push_back(js_index_map[name]);
     if (urdf_exists)
     {
-      ptr = model.getJoint(name);
+      ptr = model.getJoint(name); 
       res.joint_lower_limits.push_back(ptr->limits->lower);
       res.joint_upper_limits.push_back(ptr->limits->upper);
       res.joint_velocity_limits.push_back(ptr->limits->velocity);
